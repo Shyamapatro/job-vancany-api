@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import User from '../models/user.js';
 import { Sequelize } from 'sequelize'
 import { authConfig } from './../config/auth.config.js';
-
+import { info } from '../utils/logger.js';
 const register = async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -38,7 +38,7 @@ const register = async (req, res) => {
 
     return res.status(201).json({ message: 'User registered successfully', user: { id: user.id, username: user.username, email: user.email } });
   } catch (err) {
-    console.error(err);
+    info(err);
     return res.status(500).json({ message: 'Error registering user', error: err.message });
   }
 };
@@ -76,7 +76,7 @@ const login = async (req, res) => {
     return res.status(200).json({ token, message: 'Login successful!' });
 
   } catch (err) {
-    console.error(err);
+    info(err);
     return res.status(500).json({ message: 'An error occurred during login. Please try again later.', error: err.message });
   }
 };
