@@ -33,7 +33,7 @@ connectDB();
 //Routes
 app.use('/api/user', userRoutes);
 app.use('/api/job', jobRoutes);
-app.get("/", async (res) => {
+app.get("/", (req, res) => {
   res.json({ message: `Welcome to ${process.env.NODE_ENV} Application` });
 });
 app.use(errors());
