@@ -33,9 +33,10 @@ const connectDB = async () => {
       .then(() => {
         sequelize.sync();
         info("Connection has been established successfully.");
+        
       })
       .catch((err) => {
-       warn("Unable to connect to the database:", err);
+       console.log("Unable to connect to the database:", err);
       });
   } catch (err) {
     warn("Unable to connect to the database:", err);

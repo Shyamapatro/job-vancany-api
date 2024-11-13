@@ -33,6 +33,9 @@ connectDB();
 //Routes
 app.use('/api/user', userRoutes);
 app.use('/api/job', jobRoutes);
+app.get("/", async (res) => {
+  res.json({ message: `Welcome to ${process.env.NODE_ENV} Application` });
+});
 app.use(errors());
 
 // Global middleware to handle unknown routes

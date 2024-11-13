@@ -13,8 +13,6 @@ jest.mock('bcryptjs');
 // eslint-disable-next-line no-undef         
 jest.mock('jsonwebtoken');  
 // eslint-disable-next-line no-undef
-
-jest.setTimeout(10000);
 beforeAll(async () => {
   try {
     await connectDB();  
@@ -65,7 +63,7 @@ describe('POST /login', () => {
     expect(response.body.message).toBe('Incorrect email or password. Please try again.');
   });
 
-
+  // eslint-disable-next-line no-undef
   test('should return 200 and a token if login is successful', async () => {
     const email = 'test@example.com';
     const password = 'password123';
@@ -79,75 +77,86 @@ describe('POST /login', () => {
     const response = await request(app)
       .post('/api/user/login')
       .send({ email, password });
-    
+    // eslint-disable-next-line no-undef
     expect(response.status).toBe(200);
+    // eslint-disable-next-line no-undef
     expect(response.body.message).toBe('Login successful!');
+    // eslint-disable-next-line no-undef
     expect(response.body.token).toBe(token);
   });
-
+ // eslint-disable-next-line no-undef
   test('should return 500 if an error occurs during login', async () => {
     User.findOne.mockRejectedValue(new Error('Database error'));
 
     const response = await request(app)
       .post('/api/user/login')
       .send({ email: 'test@example.com', password: 'password123' });
-    
+    // eslint-disable-next-line no-undef
     expect(response.status).toBe(500);
+    // eslint-disable-next-line no-undef
     expect(response.body.message).toBe('An error occurred during login. Please try again later.');
+    // eslint-disable-next-line no-undef
     expect(response.body.error).toBe('Database error');
   });
   
 });
 
 
+// eslint-disable-next-line no-undef
 describe('POST /register', () => {
+  // eslint-disable-next-line no-undef
   beforeEach(() => {
-    jest.clearAllMocks(); // Clear any previous mock calls
+    // eslint-disable-next-line no-undef
+    jest.clearAllMocks(); 
   });
-
+  // eslint-disable-next-line no-undef
   test('should return 400 if username, email, or password is missing', async () => {
     const response = await request(app)
       .post('/api/user/register')
       .send({ email: 'test@example.com', password: 'password123' }); // Missing username
-
+    // eslint-disable-next-line no-undef
     expect(response.status).toBe(400);
+    // eslint-disable-next-line no-undef
     expect(response.body.message).toBe('Validation failed');
   });
-
+  // eslint-disable-next-line no-undef
   test('should return 400 if email format is invalid', async () => {
     const response = await request(app)
       .post('/api/user/register')
       .send({ username: 'testuser', email: 'invalid-email', password: 'password123' });
-
+    // eslint-disable-next-line no-undef
     expect(response.status).toBe(400);
+    // eslint-disable-next-line no-undef
     expect(response.body.message).toBe('Validation failed');
   });
-
+  // eslint-disable-next-line no-undef
   test('should return 400 if email is already registered', async () => {
     User.findOne.mockResolvedValue({ email: 'test@example.com' }); // Mock existing user with same email
 
     const response = await request(app)
       .post('/api/user/register')
       .send({ username: 'newuser', email: 'test@example.com', password: 'password123' });
-
+    // eslint-disable-next-line no-undef
     expect(response.status).toBe(400);
+    // eslint-disable-next-line no-undef
     expect(response.body.message).toBe('Email is already registered');
   });
-
+  // eslint-disable-next-line no-undef
   test('should return 400 if username is already taken', async () => {
     User.findOne.mockResolvedValue({ username: 'testuser' }); // Mock existing user with same username
 
     const response = await request(app)
       .post('/api/user/register')
       .send({ username: 'testuser', email: 'newemail@example.com', password: 'password123' });
-
+    // eslint-disable-next-line no-undef
     expect(response.status).toBe(400);
+    // eslint-disable-next-line no-undef
     expect(response.body.message).toBe('Username is already taken');
   });
-
+  // eslint-disable-next-line no-undef
   test('should return 201 and register user if data is valid', async () => {
-    User.findOne.mockResolvedValue(null); // No existing user
-    bcrypt.hash.mockResolvedValue('hashedPassword'); // Mock password hashing
+    User.findOne.mockResolvedValue(null); 
+    bcrypt.hash.mockResolvedValue('hashedPassword'); 
     User.create.mockResolvedValue({
       id: 1,
       username: 'testuser',
@@ -157,9 +166,11 @@ describe('POST /register', () => {
     const response = await request(app)
       .post('/api/user/register')
       .send({ username: 'testuser', email: 'test@example.com', password: 'password123' });
-
+    // eslint-disable-next-line no-undef
     expect(response.status).toBe(201);
+    // eslint-disable-next-line no-undef
     expect(response.body.message).toBe('User registered successfully');
+    // eslint-disable-next-line no-undef
     expect(response.body.user).toEqual({
       id: 1,
       username: 'testuser',
