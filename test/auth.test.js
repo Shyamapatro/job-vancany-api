@@ -5,6 +5,7 @@ import User from '../app/models/user'
 // import bcrypt from 'bcryptjs'
 // import jwt from 'jsonwebtoken'
 import { connectDB, disconnectDB } from '../dbConnection';
+import { info } from '../app/utils/logger';
 // eslint-disable-next-line no-undef
 jest.mock('../app/models/user'); 
 // eslint-disable-next-line no-undef 
@@ -16,7 +17,7 @@ beforeAll(async () => {
   try {
     await connectDB();  
   } catch (error) {
-    console.log("Error connecting to the database:", error);
+    info("Error connecting to the database:", error);
   }
 });
 // eslint-disable-next-line no-undef
@@ -24,7 +25,7 @@ afterAll(async () => {
   try {
     await disconnectDB(); 
   } catch (error) {
-     console.log("Error disconnecting from the database:", error);
+    info("Error disconnecting from the database:", error);
   }
 });
 // eslint-disable-next-line no-undef

@@ -1,6 +1,6 @@
 import JobListing from "../models/JobListing.js";
 import { Sequelize ,Op} from 'sequelize'
-
+import { info } from "../utils/logger.js";
 const addJobs = async (req, res) => {
   try {
     const {
@@ -25,7 +25,7 @@ const addJobs = async (req, res) => {
     });
     res.status(201).json(newJob);
   } catch (err) {
-    console.log(err)
+   info(err)
     res.status(500).json({ message: "Error while adding job" });
   }
 };
@@ -47,7 +47,7 @@ const getAllPositions = async (req, res) => {
     const sortField = allowedSortFields.includes(sortBy)
       ? sortBy
       : "seniority_level";
-      console.log("................",sortField)
+      
     const order = "DESC";
 
     const whereConditions = {};

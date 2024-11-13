@@ -44,11 +44,11 @@ const connectDB = async () => {
 
 const disconnectDB = async () => {
   try {
-    console.log("Database connection closed successfully.");
+    info("Database connection closed successfully.");
     await sequelize.close();
     
   } catch (err) {
-    console.error("Error closing the database connection:", err);
+    info("Error closing the database connection:", err);
   }
 };
 export { sequelize, connectDB, disconnectDB };
