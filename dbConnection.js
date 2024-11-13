@@ -1,6 +1,7 @@
 import Sequelize from "sequelize";
 import dotenv from "dotenv";
 import { dbConfig } from "./app/config/config.js";
+import {info,warn} from './app/utils/logger.js'
 dotenv.config();
 const sequelize = new Sequelize(
   dbConfig.database,
@@ -31,13 +32,13 @@ const connectDB = async () => {
       .authenticate()
       .then(() => {
         sequelize.sync();
-        console.log("Connection has been established successfully.");
+        info("Connection has been established successfully.");
       })
       .catch((err) => {
-        console.log("Unable to connect to the database:", err);
+       warn("Unable to connect to the database:", err);
       });
   } catch (err) {
-    console.log("Unable to connect to the database:", err);
+    warn("Unable to connect to the database:", err);
   }
 };
 

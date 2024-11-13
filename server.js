@@ -8,6 +8,7 @@ import { appConfig } from './app/config/config.js';
 import userRoutes from './app/routes/User/user.js';
 import jobRoutes from './app/routes/Job/job.js';
 import morgan from 'morgan'
+import {info,warn} from './app/utils/logger.js'
 const app = express();
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT) : 8080;
@@ -55,8 +56,8 @@ app.use((error, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-    // console.log("NODE ENV ---> ",process.env.NODE_ENV);
+  info(`Server is running on port ${PORT}`);
+  info("NODE ENV ---> ",process.env.NODE_ENV);
 });
 
 export default app;
