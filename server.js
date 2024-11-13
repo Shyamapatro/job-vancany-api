@@ -9,6 +9,9 @@ import userRoutes from './app/routes/User/user.js';
 import jobRoutes from './app/routes/Job/job.js';
 import morgan from 'morgan'
 import {info} from './app/utils/logger.js'
+import { config } from "dotenv";
+config();
+const environment = process.env.NODE_ENV || "development";
 const app = express();
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT) : 8080;
@@ -34,7 +37,7 @@ connectDB();
 app.use('/api/user', userRoutes);
 app.use('/api/job', jobRoutes);
 app.get("/", (req, res) => {
-  res.json({ message: `Welcome to ${process.env.NODE_ENV} Application` });
+  res.json({ message: `Welcome to ${environment}  Application` });
 });
 app.use(errors());
 
@@ -59,8 +62,9 @@ app.use((error, req, res, next) => {
 });
 
 app.listen(PORT, () => {
+  console.log(environment)
   info(`Server is running on port ${PORT}`);
-  info("NODE ENV ---> ",process.env.NODE_ENV);
+ 
 });
 
 export default app;
